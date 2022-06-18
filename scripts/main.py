@@ -7,7 +7,7 @@ from kivy.uix.button import Button
 class MainApp(App):
     def build(self):
         #### aplication configs ####
-        self.icon = "calculator.png"
+        self.icon = "assets/calculator.png"
         self.title = "Calculator"
         #### aplication configs ####
 
@@ -49,6 +49,27 @@ class MainApp(App):
         main_layout.add_widget(equal_button)
 
         return main_layout
+
+    def on_button_press(self, instance):
+        current = self.solution.text
+        button_text = instance.text
+
+        if button_text == 'C':
+            self.solution.text = ""
+        else:
+            if current and (self.last_was_operator and button_text in self.operators):
+                return
+            elif current == "" and  button_text in self.operators:
+                return
+            else:
+                new_text = current + button_text
+                self.solution.text = new_text
+        self.last_button = button_text
+        self.last_was_operator = self.last_button in self.operators
+
+    def on_solution(self):
+        pass
+    
         #### layout ####
         
 
