@@ -20,7 +20,7 @@ class MainApp(App):
         #### layout ####
         main_layout = BoxLayout(orientation = "vertical")
         #where the math is displayed
-        self.solution = TextInput(background_color = "blue", foreground_color = "white")
+        self.solution = TextInput(background_color = "black", foreground_color = "white", multiline = False, halign="right", font_size="45")
 
 
         main_layout.add_widget(self.solution)
@@ -54,7 +54,7 @@ class MainApp(App):
         current = self.solution.text
         button_text = instance.text
 
-        if button_text == 'C':
+        if button_text == 'c':
             self.solution.text = ""
         else:
             if current and (self.last_was_operator and button_text in self.operators):
@@ -67,8 +67,11 @@ class MainApp(App):
         self.last_button = button_text
         self.last_was_operator = self.last_button in self.operators
 
-    def on_solution(self):
-        pass
+    def on_solution(self, instance):
+        text = self.solution.text
+        if text :
+            solution = str(eval(self.solution.text))
+            self.solution.text = solution
     
         #### layout ####
         
